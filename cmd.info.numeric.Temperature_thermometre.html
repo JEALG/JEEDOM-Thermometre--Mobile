@@ -4,13 +4,13 @@
         Mise à jour 			: JAG 20190918 : Migration uniquement pour core V4
     -->
     <div class="title #hide_name#">
-        <div class="cmdName"style="#hideCmdName#">#name_display#</div>
-    </div>    
-   	<div class="value" style="font-size: 0.4em;text-align: right;margin-right:1px;position:relative;width:20px;height:60px;float: left;">
+        <div class="cmdName" style="#hideCmdName#">#name_display#</div>
+    </div>
+    <div class="value" style="font-size: 0.4em;text-align: right;margin-right:1px;position:relative;width:20px;height:60px;float: left;">
         <span class="#hide_history# HIST#id#" style="position: relative;float: right;top: 2px;#displayHistory#">#maxHistoryValue#</span>
-      	<span class="MINMAX#id#" style="position: relative;float: right;top: 2px;">#maxValue#</span>
+        <span class="MINMAX#id#" style="position: relative;float: right;top: 2px;">#maxValue#</span>
         <span class="#hide_history# HIST#id#" style="position: relative;float: right;top: 38px;#displayHistory#">#minHistoryValue#</span>
-      	<span class="MINMAX#id#" style="position: relative;float: right;top: 38px;">#minValue#</span>
+        <span class="MINMAX#id#" style="position: relative;float: right;top: 38px;">#minValue#</span>
     </div>
     <div style="position:relative;width:15px;height:70px;float: left;background:url('data/customTemplates/dashboard/cmd.action.other.Multi-action-Defaut/temperature/te_thermometre.png') no-repeat;background-size: 15px 60px;">
         <div style="position: absolute;display:block;width: 3px;float:left;height: 44px;border: none;border-radius: 4px;background-color: white;left: 6.25px;top: 3px;">
@@ -22,32 +22,37 @@
             <span class="value#id# timeCmd label label-default value"></span>
             <!-- Historique -->
             <div class="cmdStats #hide_history#" style="#displayHistory# font-size : 8px;text-align: left;">
-                <span title="Min" style="float:left;">Min : #minHistoryValue# #unite#</span><br/>
-                <span title="Moy" style="float:left;">Moy : #averageHistoryValue# #unite#</span><br/>
-                <span title="Max" style="float:left;">Max : #maxHistoryValue# #unite#</span><br/>
-                <i class="#tendance#"></i> 
+                <span title="Min" style="float:left;">Min : #minHistoryValue# #unite#</span><br />
+                <span title="Moy" style="float:left;">Moy : #averageHistoryValue# #unite#</span><br />
+                <span title="Max" style="float:left;">Max : #maxHistoryValue# #unite#</span><br />
+                <i class="#tendance#"></i>
             </div>
         </div>
     </div>
     <script>
-        jeedom.cmd.update['#id#'] = function(_options){
+        jeedom.cmd.update['#id#'] = function(_options) {
             // Variable masque pour div historique ou maxmin
-                var srcdivhidden_M    = ('#min_max-M#'!='#'+'min_max-M#') ? "#min_max-M#": "X";
+            var srcdivhidden_M = ('#min_max-M#' != '#' + 'min_max-M#') ? "#min_max-M#" : "X";
 
             //Update
-            $('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
-            $('.cmd[data-cmd_id=#id#] .value#id#').empty().append(_options.display_value+' '+'#unite#'); 
-            height = Math.round( (_options.display_value - ('#minValue#')) * (68/('#maxValue#' - ('#minValue#'))) ) + 6;
-            $('.height#id#').css('height',height+'px');
+            $('.cmd[data-cmd_id=#id#]').attr('title', 'Valeur du ' + _options.valueDate + ', collectée le ' + _options.collectDate);
+            $('.cmd[data-cmd_id=#id#] .value#id#').empty().append(_options.display_value + ' ' + '#unite#');
+            height = Math.round((_options.display_value - ('#minValue#')) * (68 / ('#maxValue#' - ('#minValue#')))) + 6;
+            $('.height#id#').css('height', height + 'px');
             //masque des données
-                if (srcdivhidden_M =="X") {
-                    $("span.MINMAX#id#").css("display","visible");
-                    $("span.HIST#id#").css("display","none");
-                }else{
-                    $("span.MINMAX#id#").css("display","none");
-                    $("span.HIST#id#").css("display","visible");
-                }
+            if (srcdivhidden_M == "X") {
+                $("span.MINMAX#id#").css("display", "visible");
+                $("span.HIST#id#").css("display", "none");
+            } else {
+                $("span.MINMAX#id#").css("display", "none");
+                $("span.HIST#id#").css("display", "visible");
+            }
         }
-        jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+        jeedom.cmd.update['#id#']({
+            display_value: '#state#',
+            valueDate: '#valueDate#',
+            collectDate: '#collectDate#',
+            alertLevel: '#alertLevel#'
+        });
     </script>
 </div>
